@@ -32,7 +32,6 @@ async def cp_(bot: Bot, event: Event,state: T_State):
     user_id = event.get_session_id().split("_")[2]
     updatetime = datetime.now().strftime('%Y%m%d')
     _group_user_list = await bot.get_group_member_list(group_id=group_id)
-    print(_group_user_list)
     args = state['args']
     gong = None
     shou = None
