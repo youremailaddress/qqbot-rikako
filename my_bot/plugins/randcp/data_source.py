@@ -33,15 +33,19 @@ def init(lis_):
     return session,dic
 
 def check_can(session,group_orm,user_id,updatetime):
-    try:
-        m = session.query(group_orm).filter(group_orm.USER_ID==user_id).filter(group_orm.UPDATETIME==updatetime).first()
-        if m.REQUESTTIMES < 5:
-            m.REQUESTTIMES+=1
-            session.commit()
-            return True
-        else:
-            return False
-    except:
+    m = session.query(group_orm).filter(group_orm.USER_ID==user_id).first()
+    if m == None:
         session.add(group_orm(USER_ID=user_id,REQUESTTIMES=1,UPDATETIME=updatetime))
         session.commit()
         return True
+    elif m.UPDATETIME==updatetime and m.REQUESTTIMES < 5:
+        m.REQUESTTIMES+=1
+        session.commit()
+        return True
+    elif m.UPDATETIME!=updatetime:
+        m.UPDATETIME=updatetime
+        m.REQUESTTIMES=1
+        session.commit()
+        return True
+    elif m.UPDATETIME==updatetime and m.REQUESTTIMES >= 5:
+        return False
