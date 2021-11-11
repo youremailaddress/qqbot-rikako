@@ -12,10 +12,11 @@ import json
 
 scheduler = require("nonebot_plugin_apscheduler").scheduler
 
-@scheduler.scheduled_job("cron", hour="9",minute="50")
+@scheduler.scheduled_job("cron", hour="19",minute="31")
 async def tm():
     bot = get_bot()
-    group_id=744129478
+    # group_id=744129478
+    group_id=482120682
     try:
         try:
             url = 'http://api.soyiji.com/news_jpg'
@@ -26,8 +27,9 @@ async def tm():
             cq = "[CQ:image,file="+img_url+",id=40000]"
             msg=Message(cq)
             await bot.send_group_msg(group_id=group_id, message=msg)
-        except:
-            msg="呜呜，获取日报失败了，快来修理我吧"
+        except Exception as e:
+            print(str(e))
+            msg="呜呜，获取日报失败了，快来修理我吧"+str(e)
             await bot.send_group_msg(group_id=group_id, message=msg)
 
     except :
