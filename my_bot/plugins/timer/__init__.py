@@ -12,7 +12,7 @@ import json
 
 scheduler = require("nonebot_plugin_apscheduler").scheduler
 
-@scheduler.scheduled_job("cron", hour="19",minute="54")
+@scheduler.scheduled_job("cron", hour="9",minute="50")
 async def tm():
     bot = get_bot()
     group_id=744129478
