@@ -12,11 +12,11 @@ import json
 
 scheduler = require("nonebot_plugin_apscheduler").scheduler
 
-@scheduler.scheduled_job("cron", hour="19",minute="50")
+@scheduler.scheduled_job("cron", hour="19",minute="53")
 async def tm():
     bot = get_bot()
-    # group_id=744129478
-    group_id=482120682
+    group_id=744129478
+    # group_id=482120682
     try:
         try:
             url = 'http://api.soyiji.com/news_jpg'
