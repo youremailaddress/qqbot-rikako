@@ -191,6 +191,7 @@ $RECYCLE.BIN/
 
 data/*
 logs/
+go-cqhttp
 *.db
 *.exe
 *.json
