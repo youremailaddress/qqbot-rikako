@@ -37,4 +37,4 @@ class HandleDB():
             sql += ");"
             await cursor.execute(sql)
             await db.commit()
-        async return db,cursor
+        return db,cursor
