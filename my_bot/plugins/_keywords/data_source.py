@@ -68,8 +68,4 @@ def get_keyword_response_form(session,group_orm):
         dic[i] = [i[0] for i in session.query(group_orm.RESPONSE).filter(group_orm.KEYWORD==i).all()]
     return dic
 
-# session,dic = init(["1291038291","1291172829","1291139402","1291038234"])
-# pushwords(session, group_orm=dic["1291172829"],keyword="hello",response="hi~")
-# pushwords(session, group_orm=dic["1291172829"],keyword="hello!",response="hi_!!")
-# print(get_keyword_response_form(session, group_orm=dic["1291172829"]))
 

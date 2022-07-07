@@ -2,14 +2,11 @@
 from nonebot import get_driver
 import random,math
 from datetime import datetime
-from .config import Config
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.plugin import on_message, on_command
 from nonebot.adapters.cqhttp import MessageSegment
 conf = get_driver().config
-from nonebot.permission import SUPERUSER
-from nonebot.adapters.cqhttp.permission import GROUP_ADMIN,GROUP_MEMBER,PRIVATE_FRIEND,GROUP_OWNER
-from .utils import acceptMessage
+from utils.permissionhandler import PermissionHandler
 from .data_source import *
 
 rpcomment = {
@@ -27,15 +24,17 @@ rpcomment = {
     "114510":["","哼哼啊啊啊啊啊啊","好臭的人品啊啊啊","虽然但是，建议你去买彩票"]
 }
 
-session,dic = init(conf.group_list)
-rp_pro = on_command('今日人品',aliases={"rp","人品"},priority=50,permission=SUPERUSER|GROUP_MEMBER|GROUP_ADMIN|GROUP_OWNER,rule=acceptMessage())
+rpdb = RPDBHandler()
+rp_pro = on_command('今日人品',aliases={"rp","人品"},priority=50)
+rp_pro_perm =  PermissionHandler("rp","rp *","查询今日人品")
 @rp_pro.handle()
 async def rp_(bot: Bot, event: Event):
-    group_id = event.get_session_id().split("_")[1]
-    user_id = event.get_session_id().split("_")[2]
-    updatetime = datetime.now().strftime('%Y%m%d') 
-    if get_rp(session, dic[group_id], user_id, updatetime):
-        rp,comment = get_rp(session, dic[group_id], user_id, updatetime)
+    if not rp_pro_perm.async_checker(bot, event):
+        return
+    user_id = event.get_user_id()
+    updatetime = datetime.now().strftime('%Y%m%d')
+    if rpdb.get_rp(user_id, updatetime):
+        rp,comment = rpdb.get_rp(user_id, updatetime)
         if comment!="":
             await rp_pro.finish("["+MessageSegment.at(user_id=int(user_id))+f"]今日rp:{rp}\n{comment}")
         else:
@@ -43,14 +42,14 @@ async def rp_(bot: Bot, event: Event):
     rp = random.randint(0,114520)
     if rp == 114514:
         comment = random.choice(rpcomment["114510"])
-        push_rp(session, dic[group_id], user_id, rp, comment, updatetime)
+        rpdb.push_rp(user_id, rp, comment, updatetime)
         await rp_pro.finish("["+MessageSegment.at(user_id=int(user_id))+f"]今日rp:{rp}\n{comment}")
     else:
         rp_raw = rp%101
         rp_raw = int(math.sqrt(rp_raw)*10)
         rp = str(int((rp%101)/10)*10)
         comment = random.choice(rpcomment[rp])
-        push_rp(session, dic[group_id], user_id, rp_raw, comment, updatetime)
+        rpdb.push_rp(user_id, rp_raw, comment, updatetime)
         await rp_pro.finish("["+MessageSegment.at(user_id=int(user_id))+f"]今日rp:{rp_raw}\n{comment}")
 
 
