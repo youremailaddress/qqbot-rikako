@@ -217,7 +217,7 @@ class PermissionHandler():
             role = event.sender.role
         except:
             role = None
-        if self.isOfGroup(event):
+        if len(event.get_session_id().split("_"))>1:
             groupid = event.get_session_id().split("_")[1]
         # 查找 func 对应 func_id       
         sql = '''select func_id from func_table where func_name=?'''
