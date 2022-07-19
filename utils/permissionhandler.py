@@ -1,3 +1,4 @@
+from typing import List
 from nonebot.adapters import Bot, Event
 from nonebot.adapters.cqhttp.event import *
 from nonebot import get_driver
@@ -232,6 +233,29 @@ class PermissionHandler():
         # 默认策略是 False
         return False
 
+    # def scheduled_job_hands_out(self,bot:Bot) -> List:
+    #     '''
+    #     定时任务权限分发函数
+    #     返回 函数 辖域 列表
+    #     '''
+    #     if global_config.set_on == False: # 如果关机状态不响应任何使用本checker的命令
+    #         return []
+    #     # 查找 func 对应 func_id       
+    #     sql = '''select func_id from func_table where func_name=?'''
+    #     func_id = self.dbh.getone("func_table",self.cfg["func_table"],sql,(self.funcname,))
+    #     assert func_id != None
+    #     sql = '''select user_id from role_user_table,func_role_table where func_id = ? and func_role_table.role_id = role_user_table.role_id;'''
+    #     res = self.dbh.getmany("role_user_table",self.cfg["role_user_table"],sql,(func_id,))
+    #     if res == None:
+    #         return []
+    #     res = [item[0] for item in res]
+    #     sql = '''select user_id from role_user_table,disable_table where disable_table.func_id = ? and role_user_table.role_id = disable_table.role_id;'''
+    #     resdis = self.dbh.getmany("disable_table",self.cfg["disable_table"],sql,(func_id,))
+    #     if resdis == None:
+    #         return res
+    #     resdis = [item[0] for item in resdis]
+    #     return list(set(res)-set(resdis))
+
     def checkUserParse(self,user):
         '''
         检查权限 user 是否符合格式条件
@@ -250,4 +274,35 @@ class PermissionHandler():
         if user[0].isdigit() and user[1] in ['*','#1','#2','#3','#4']:
             return True
         return False
-    
+
+# schedule bot 主动推送，所以 PermissionHandler 应该作用于设置推送的环节（谁可以设置哪种 schedule ）而不是调用 schedule 的环节
+
+# class ScheduleHandler():
+#     def __init__(self,schedulename,scheduleusage,scheduleintro) -> None:
+#         self.dbh = PermissionDBHandler()
+#         self.cfg = {
+#             "role_table":[("role_id","Integer","PRIMARY KEY AUTOINCREMENT NOT NULL"),("role_name","TEXT","UNIQUE NOT NULL")],
+#             "role_user_table":[("role_id","Integer","NOT NULL"),("user_id","TEXT","NOT NULL")],
+#             "schedule_table":[("schedule_id","Integer","PRIMARY KEY AUTOINCREMENT NOT NULL"),("schedule_name","TEXT","UNIQUE NOT NULL"),("schedule_usage","TEXT","NOT NULL"),("schedule_intro","TEXT","NOT NULL")],
+#             "func_role_table":[("func_id","Integer","NOT NULL"),("role_id","Integer","NOT NULL")],
+#             "disable_table":[("func_id","Integer","NOT NULL"),("role_id","Integer","NOT NULL")]
+#         }
+#         self.schedulename = schedulename
+#         self.scheduleusage = scheduleusage
+#         self.scheduleintro = scheduleintro
+#         for k,v in self.cfg.items():
+#             self.dbh._ensureTable(k,v)
+#         self.register()
+
+#     def register(self):
+#         '''
+#         在数据库里查询是否注册func，若没有则注册
+#         '''
+#         sql = '''select func_id from func_table where func_name = ?;'''
+#         res = self.dbh.getone("func_table",self.cfg["func_table"],sql,(self.funcname,))
+#         if res != None:
+#             return True
+#         else:
+#             sqlinsert = '''insert into func_table(func_name,func_usage,func_intro) values (?,?,?);'''
+#             self.dbh.push("func_table",self.cfg["func_table"],sqlinsert,(self.funcname,self.funcusage,self.funcintro))
+#             return True

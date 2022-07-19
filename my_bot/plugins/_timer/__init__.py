@@ -1,29 +1,16 @@
-# import nonebot
-from nonebot import on_command, on_startswith, require, get_bot
-from nonebot.rule import to_me
-from nonebot.typing import T_State
-from nonebot.adapters import Bot, Event
+from nonebot import require, get_bot
+from utils.permissionhandler import PermissionHandler
 from nonebot.adapters.cqhttp.message import Message
-import nonebot.adapters.cqhttp
-import _thread
 
-import urllib3
-import json
-
-scheduler = require("nonebot_plugin_apscheduler").scheduler
-
-@scheduler.scheduled_job("cron", hour="9",minute="50")
-async def tm():
+news = require("nonebot_plugin_apscheduler").scheduler
+news_perm = PermissionHandler("news","9:50 every day","每天发送新闻日报")
+@news.scheduled_job("cron", hour="23",minute="26")
+async def news_():
     bot = get_bot()
-    group_id=744129478
-    # group_id=482120682
+    group_id=482120682
     try:
         try:
-            url = 'http://api.soyiji.com/news_jpg'
-            r = urllib3.PoolManager().request('GET', url)
-            hjson = json.loads(r.data.decode())
-            img_url = hjson["url"]
-            img_url = "http://www.zmrwh.xyz:82/1.php?id="+img_url
+            img_url = 'https://raw.githubusercontent.com/BugWriter2/Keji/main/output/img/news.jpg'
             cq = "[CQ:image,file="+img_url+",id=40000]"
             msg=Message(cq)
             await bot.send_group_msg(group_id=group_id, message=msg)
