@@ -4,10 +4,10 @@ from nonebot.adapters.cqhttp.message import Message
 
 news = require("nonebot_plugin_apscheduler").scheduler
 news_perm = PermissionHandler("news","9:50 every day","每天发送新闻日报")
-@news.scheduled_job("cron", hour="23",minute="26")
+@news.scheduled_job("cron", hour="9",minute="50")
 async def news_():
     bot = get_bot()
-    group_id=482120682
+    group_id=744129478
     try:
         try:
             img_url = 'https://raw.githubusercontent.com/BugWriter2/Keji/main/output/img/news.jpg'
