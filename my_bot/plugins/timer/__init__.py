@@ -9,6 +9,6 @@ async def sche_():
     group_id=[744129478]
     if datetime.datetime.now().hour == 0 and datetime.datetime.now().minute == 20:
         for gi in group_id:
-            news(bot,gi)
+            await news(bot,gi)
 
 
