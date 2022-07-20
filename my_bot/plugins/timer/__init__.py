@@ -10,7 +10,7 @@ async def news_():
     group_id=744129478
     try:
         try:
-            img_url = 'https://raw.githubusercontent.com/BugWriter2/Keji/main/output/img/news.jpg'
+            img_url = 'https://raw.githubusercontent.com/pkupersonalities/Keji/main/output/img/news.jpg'
             cq = "[CQ:image,file="+img_url+",id=40000]"
             msg=Message(cq)
             await bot.send_group_msg(group_id=group_id, message=msg)
