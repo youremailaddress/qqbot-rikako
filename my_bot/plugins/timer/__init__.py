@@ -1,26 +1,14 @@
 from nonebot import require, get_bot
-from utils.permissionhandler import PermissionHandler
-from nonebot.adapters.cqhttp.message import Message
+from .dailynews import news
+import datetime
 
-news = require("nonebot_plugin_apscheduler").scheduler
-news_perm = PermissionHandler("news","9:50 every day","每天发送新闻日报")
-@news.scheduled_job("cron", hour="9",minute="50")
-async def news_():
+sche = require("nonebot_plugin_apscheduler").scheduler
+@sche.scheduled_job("cron", hour="*",minute="*")
+async def sche_():
     bot = get_bot()
-    group_id=744129478
-    try:
-        try:
-            img_url = 'https://raw.githubusercontent.com/pkupersonalities/Keji/main/output/img/news.jpg'
-            cq = "[CQ:image,file="+img_url+",id=40000]"
-            msg=Message(cq)
-            await bot.send_group_msg(group_id=group_id, message=msg)
-        except Exception as e:
-            print(str(e))
-            msg="呜呜，获取日报失败了，快来修理我吧"+str(e)
-            await bot.send_group_msg(group_id=group_id, message=msg)
-
-    except :
-        msg="我已经很努力的向报社催了，可能今天的日报卡路上了吧"
-        await bot.send_group_msg(group_id=group_id, message=msg)
+    group_id=[744129478]
+    if datetime.datetime.now().hour == 0 and datetime.datetime.now().minute == 20:
+        for gi in group_id:
+            news(bot,gi)
 
 
