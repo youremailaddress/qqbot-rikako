@@ -1,5 +1,6 @@
 from nonebot import require, get_bot
 from .dailynews import news
+from .bililive import handleblive
 import datetime
 
 sche = require("nonebot_plugin_apscheduler").scheduler
@@ -10,5 +11,6 @@ async def sche_():
     if datetime.datetime.now().hour == 9 and datetime.datetime.now().minute == 50:
         for gi in group_id:
             await news(bot,gi)
+        await handleblive(bot)
 
 
