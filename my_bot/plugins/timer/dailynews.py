@@ -1,8 +1,12 @@
 from nonebot.adapters.cqhttp.message import Message
+import datetime
+year = datetime.datetime.now().year
+month = datetime.datetime.now().month
+day = datetime.datetime.now().
 async def news(bot,group_id):
     try:
         try:
-            img_url = 'https://raw.githubusercontent.com/pkupersonalities/Keji/main/output/img/news.jpg'
+            img_url = f'https://raw.githubusercontent.com/pkupersonalities/Keji/main/output/img/news_{year}_{month}_{day}.jpg'
             cq = "[CQ:image,file="+img_url+",id=40000]"
             msg=Message(cq)
             await bot.send_group_msg(group_id=group_id, message=msg)
