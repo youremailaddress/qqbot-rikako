@@ -1,7 +1,6 @@
 import requests,time
 from ..bililivereminder.data_source import BiliLiveDBHandler
 from nonebot.adapters.cqhttp.message import Message
-bilidb = BiliLiveDBHandler()
 
 def gettimestamp(timestr):
     return int(time.mktime(time.strptime(timestr,'%Y-%m-%d %H:%M:%S')))
@@ -16,6 +15,7 @@ def getbililive(uid):
         return m["title"],m['live_url'],m['cover'],m['uname'],m["live_time"]
 
 async def handleblive(bot):
+    bilidb = BiliLiveDBHandler()
     dic = bilidb.fetch_blive()
     for k,v in dic.items():
         resp = getbililive(k)
@@ -31,3 +31,4 @@ async def handleblive(bot):
             else:
                 msg = Message(f"你关注的{uname}主播开播啦，直播名字{title}，直播地址{liveurl}")
                 await bot.send_group_msg(group_id=config["group"], message=msg+Message(f'[CQ:image,file={cover}]'))
+    bilidb.freedbhandler()

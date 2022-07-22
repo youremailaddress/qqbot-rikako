@@ -198,3 +198,4 @@ go-cqhttp
 *.json
 *.token
 *.yml
+*.db-journal

@@ -61,3 +61,6 @@ class BiliLiveDBHandler(SelfDefineDBHandler):
                 tempdic['ingroup'] = bar[2]
                 retdic[item[0]].append(tempdic)
         return retdic
+    
+    def freedbhandler(self):
+        self.db.close()

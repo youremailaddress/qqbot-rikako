@@ -11,6 +11,6 @@ async def sche_():
     if datetime.datetime.now().hour == 9 and datetime.datetime.now().minute == 50:
         for gi in group_id:
             await news(bot,gi)
-        await handleblive(bot)
+    await handleblive(bot)
 
 
