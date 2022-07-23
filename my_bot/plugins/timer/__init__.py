@@ -8,7 +8,7 @@ sche = require("nonebot_plugin_apscheduler").scheduler
 async def sche_():
     bot = get_bot()
     group_id=[744129478]
-    if datetime.datetime.now().hour == 9 and datetime.datetime.now().minute == 50:
+    if datetime.datetime.now().hour == 9 and datetime.datetime.now().minute == 55:
         for gi in group_id:
             await news(bot,gi)
     await handleblive(bot)

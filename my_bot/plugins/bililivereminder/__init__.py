@@ -20,6 +20,8 @@ async def bilifocus_(bot: Bot, event: Event,state: T_State):
         await bilifocus.finish("参数不正确。用法:B站直播关注 UID")
     else:
         biliid = msg[1]
+        if not biliid.isdigit():
+           await bilifocus.finish("UID必须为数字") 
         uid = event.get_user_id()
         groupid = 0
         if len(event.get_session_id().split("_"))>1:
