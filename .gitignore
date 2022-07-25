@@ -195,7 +195,8 @@ dumps/*
 go-cqhttp
 *.db
 *.exe
-*.json
+.vscode/*
+device.json
 *.token
 *.yml
 *.db-journal
