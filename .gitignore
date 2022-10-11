@@ -200,3 +200,4 @@ device.json
 *.token
 *.yml
 *.db-journal
+tmp/images/*.png

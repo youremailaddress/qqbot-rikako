@@ -13,4 +13,6 @@ nonebot.load_plugins("my_bot/plugins")
 # conf = driver.config
 
 if __name__ == "__main__":
+    if not os.path.exists(os.path.split(os.path.realpath(__file__))[0]+"/tmp/"):
+        os.makedirs(os.path.split(os.path.realpath(__file__))[0]+"/tmp/images/")
     nonebot.run(lifespan="on")
