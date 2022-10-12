@@ -30,7 +30,8 @@ def makePic(url:str,type):
     if type not in ["flash","show"]:
         return ""
     if url.startswith("http"):
-        return Message(f"[CQ:image,url={url},type={type}]")
+        return Message(f"[CQ:image,file={url},type={type},id=40000]")
+        # return Message(f"[CQ:image,file={url}]")
     else:
         return Message(f"[CQ:image,file=file:///{global_config.root}tmp/images/{url},type={type}]")
 

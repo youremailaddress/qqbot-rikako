@@ -10,7 +10,7 @@ async def dailynews(bot:Bot,uid,gid,**kwargs):
             year = datetime.datetime.now().year
             month = datetime.datetime.now().month
             day = datetime.datetime.now().day
-            img_url = f'https://raw.githubusercontent.com/pkupersonalities/Keji/main/output/img/news_{year}_{month}_{day-1}.jpg'
+            img_url = f'https://cdn.statically.io/gh/pkupersonalities/Keji/main/output/img/news_{year}_{month}_{day}.jpg'
             msg = makeCardImage(img_url)
         except Exception as e:
             print(str(e))
