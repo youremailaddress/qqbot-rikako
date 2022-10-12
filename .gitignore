@@ -201,3 +201,4 @@ device.json
 *.yml
 *.db-journal
 tmp/images/*.png
+beiwang

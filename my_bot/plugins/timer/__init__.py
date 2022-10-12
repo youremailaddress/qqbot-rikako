@@ -1,5 +1,6 @@
 from nonebot import require, get_bot
 from ..dailynews.dailynews import dailynews
+from ..reminder.remind import reminder
 
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.matcher import Matcher
@@ -7,7 +8,6 @@ from nonebot.typing import T_State
 from nonebot import on_command
 from utils.timerhandler import TMH as tmr
 from utils.permissionhandler import PMH as perm
-import time
 
 viewtimer = on_command("查询定时",priority=35)
 @viewtimer.handle()
@@ -45,3 +45,4 @@ sche = require("nonebot_plugin_apscheduler").scheduler
 async def sche_():
     bot = get_bot()
     await dailynews(bot)
+    await reminder(bot)
