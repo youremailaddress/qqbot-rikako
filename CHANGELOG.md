@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - 删除了 keyword 关键词回复功能 [deprecated]
+- 删除了 randcp 随机磕糖功能 [deprecated]
 
 ## [0.0.2] - 2021-11-11
 
