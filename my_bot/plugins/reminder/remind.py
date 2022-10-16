@@ -9,4 +9,4 @@ async def reminder(bot:Bot,uid,gid,**kwargs):
         await bot.send_group_msg(group_id=gid,message=msg)
     else:
         msg = f"[一条在{time.strftime('%Y/%m/%d %H:%M',time.localtime(kwargs['sendtime']))}时设置的提醒消息]{kwargs['msg']}"
-        await bot.send_private_msg(user_id=uid,message=str(kwargs))
+        await bot.send_private_msg(user_id=uid,message=msg)

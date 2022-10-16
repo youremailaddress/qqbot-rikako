@@ -1,5 +1,6 @@
 from nonebot import require, get_bot
 from ..dailynews.dailynews import dailynews
+from ..reminder.remind import reminder
 
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.matcher import Matcher
@@ -45,3 +46,4 @@ sche = require("nonebot_plugin_apscheduler").scheduler
 async def sche_():
     bot = get_bot()
     await dailynews(bot)
+    await reminder(bot)
