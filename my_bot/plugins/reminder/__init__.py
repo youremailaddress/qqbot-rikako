@@ -16,6 +16,7 @@ async def _tim_(bot: Bot, event: Event,state: T_State,matcher: Matcher):
     msg = str(event.message).strip()
     if len(msg.split(" ")) < 2:
         await testtime.finish("添加提醒格式错误！请查看介绍")
+    msg = msg.split(" ")
     tm = msg[0]
     assert len(tm.split(":")) == 2
     try:
@@ -47,7 +48,7 @@ async def _tim_(bot: Bot, event: Event,state: T_State,matcher: Matcher):
         interval = 0
     else:
         interval = msg[-1]
-    res = tmr.addTime("reminder",f"{start}_{interval}",uid,gid,msg=mindthings,sender=usid,sendtime=int(time.time()))
+    res = tmr.addTime("reminder",f"{start}_{interval}",uid,gid,usid,msg=mindthings,sender=usid,sendtime=int(time.time()))
     if res == False:
         await testtime.send("添加提醒失败，可能是因为您的定时任务超出配额，请删除无用的定时任务")
     else:
