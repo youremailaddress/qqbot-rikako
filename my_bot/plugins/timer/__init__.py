@@ -8,7 +8,6 @@ from nonebot.typing import T_State
 from nonebot import on_command
 from utils.timerhandler import TMH as tmr
 from utils.permissionhandler import PMH as perm
-import time
 
 viewtimer = on_command("查询定时",priority=35)
 @viewtimer.handle()
