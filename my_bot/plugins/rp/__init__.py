@@ -7,13 +7,15 @@ from utils.permissionhandler import PMH as perm
 from nonebot.plugin import on_command
 from .data_source import RPH as rphdle
 from utils.multimediahandler import makeAt
+import math
 
 def gen_rp():
-    rp = random.gauss(50,36)
-    if rp > 180:
+    rp = random.randint(0,114520)
+    if rp > 114500:
         return 114514
     else:
-        return round(rp%100.01)
+        rp = rp%101
+        return round(math.sqrt(rp)*10)
 
 rpcomment = {
     0:["","？","诸事不宜","啊这，真的不是10分满分制吗？"],
