@@ -44,4 +44,4 @@ async def rp_(bot: Bot, event: Event, state: T_State,matcher: Matcher):
     rawrp = gen_rp()
     comment = random.choice(rpcomment[(rawrp//10)*10])
     rphdle.push_rp(user_id,rawrp,comment,updatetime)
-    await rp_pro.finish("["+makeAt(user_id)+f"今日rp:{rawrp}\n{comment}")
+    await rp_pro.finish("["+makeAt(user_id)+f"]今日rp:{rawrp}\n{comment}")
