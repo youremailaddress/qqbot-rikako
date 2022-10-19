@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - 解决 rp 后括号缺失的问题
-- 解决 on_notice 即会触发一言接口的问题
+- 解决 on_notice 即会触发一言接口的问题（多个role与会有此问题）
 - 解决相同时间相同定时任务只会被触发第一个的问题
 
 ## [0.2.0] - 2022-10-12 - LTS
