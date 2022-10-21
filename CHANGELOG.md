@@ -10,11 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - 添加 bilibili 直播提醒功能
-- 添加 setu 随机发送二次元美少女图片
-- 添加距离考研/高考/雅思/四六级/.../天数
 - 添加各大高校历年分数线
 - 添加各大高校研招情况
 - 添加聊天机器人接口
+
+### Fixed
+
+- 解决相同时间相同定时任务只会被触发第一个的问题
+
+## [0.2.1] - 2022-10-22 - SOON
+
+### Added
+
+- 添加 setu 随机发送二次元美少女图片
+- 添加距离考研/高考天数
 - 添加 ChangeLog 方便了解开发过程
 - 添加 mainuse 分支隔离生产环境和工作环境
 - 添加 auto_renew 脚本进行更新
@@ -27,7 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 解决 rp 后括号缺失的问题
 - 解决 on_notice 即会触发一言接口的问题（多个role与会有此问题）
-- 解决相同时间相同定时任务只会被触发第一个的问题
 
 ## [0.2.0] - 2022-10-12 - LTS
 
