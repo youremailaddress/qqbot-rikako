@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 添加 bilibili 直播提醒功能
 - 添加 setu 随机发送二次元美少女图片
-- 添加距离考研/高考/雅思/四六级/.../天数
+- 添加距离考研/高考天数
 - 添加各大高校历年分数线
 - 添加各大高校研招情况
 - 添加聊天机器人接口
