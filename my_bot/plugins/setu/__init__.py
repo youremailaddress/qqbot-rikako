@@ -23,7 +23,7 @@ async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
     msg = str(event.message).strip()
     if msg == "":
         async with httpx.AsyncClient(timeout=20) as client:
-            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat')
+            resp = await client.get('https://api.lolicon.app/setu/v2')
             res = resp.json()
             await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
     else:
@@ -31,7 +31,7 @@ async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
         querystring = "&tag=" + "&tag=".join(queries)
         notand = False
         async with httpx.AsyncClient(timeout=20) as client:
-            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat&r18=0'+querystring)
+            resp = await client.get('https://api.lolicon.app/setu/v2?r18=0'+querystring)
             res = resp.json()
             if res["data"] != []:
                 await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
@@ -41,7 +41,7 @@ async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
             querystring = "&tag=" +   "|".join(queries)
             notor = False
             async with httpx.AsyncClient(timeout=20) as client:
-                resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat&r18=0'+querystring)
+                resp = await client.get('https://api.lolicon.app/setu/v2?r18=0'+querystring)
                 res = resp.json()
                 if res["data"] != []:
                     await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
@@ -49,6 +49,6 @@ async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
                     notor = True
             if notor:
                 async with httpx.AsyncClient(timeout=20) as client:
-                    resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat')
+                    resp = await client.get('https://api.lolicon.app/setu/v2')
                     res = resp.json()
                     await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
