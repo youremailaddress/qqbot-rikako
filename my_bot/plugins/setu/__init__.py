@@ -6,12 +6,15 @@ from nonebot.matcher import Matcher
 from utils.permissionhandler import PMH as perm
 from utils.multimediahandler import makeCardImage,makePic
 
-async def tryCardImage(handler,url):
-    try:
-        await handler.finish(makeCardImage(url))
-    except Exception as e:
-        if str(e).strip() != "":
-            await handler.finish(makePic(url=url,type="show"))
+async def tryCardImage(handler,url,isgroup):
+    if isgroup:
+        try:
+            await handler.finish(makeCardImage(url))
+        except Exception as e:
+            if str(e).strip() != "":
+                await handler.finish(makePic(url=url,type="show"))
+    else:
+        await handler.finish(makePic(url=url,type="show"))
 
 setu = on_command("来张色图",priority=50)
 @setu.handle()
@@ -20,14 +23,32 @@ async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
     msg = str(event.message).strip()
     if msg == "":
         async with httpx.AsyncClient(timeout=20) as client:
-            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=pixiv.re/{{pid}}.{{ext}}')
+            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat')
             res = resp.json()
-            await tryCardImage(setu,res["data"][0]["urls"]["original"])
+            await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
     else:
         queries = msg.split(" ")
         querystring = "&tag=" + "&tag=".join(queries)
+        notand = False
         async with httpx.AsyncClient(timeout=20) as client:
-            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=pixiv.re/{{pid}}.{{ext}}&r18=0'+querystring)
+            resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat&r18=0'+querystring)
             res = resp.json()
-            print(res)
-            await tryCardImage(setu,res["data"][0]["urls"]["original"])
+            if res["data"] != []:
+                await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
+            else:
+                notand = True
+        if notand:
+            querystring = "&tag=" +   "|".join(queries)
+            notor = False
+            async with httpx.AsyncClient(timeout=20) as client:
+                resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat&r18=0'+querystring)
+                res = resp.json()
+                if res["data"] != []:
+                    await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
+                else:
+                    notor = True
+            if notor:
+                async with httpx.AsyncClient(timeout=20) as client:
+                    resp = await client.get('https://api.lolicon.app/setu/v2?proxy=i.pixiv.cat')
+                    res = resp.json()
+                    await tryCardImage(setu,res["data"][0]["urls"]["original"],len(event.get_session_id().split("_"))>1)
