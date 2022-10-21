@@ -13,4 +13,5 @@ matcher = on_command("测试超管",priority=1, permission=SUPERUSER)
 @matcher.handle()
 async def _(bot: Bot, event: Event):
     # await matcher.send(makePic("https://cdn.statically.io/gh/pkupersonalities/Keji/main/output/img/news_2022_10_11.jpg",type="show"))
-    await matcher.send(makeCardImage("https://npm.elemecdn.com/chenyfan-happypic@0.0.3/11.jpg"))
+    await matcher.send(makeCardImage("https://pixiv.re/99796471.jpg"))
+    await matcher.send(makeCardImage("https://i.pixiv.re/img-original/img/2022/05/12/01/49/58/98282918_p2.jpg"))
