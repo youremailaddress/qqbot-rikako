@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- 解决 setu 被 tx 风控的问题
 - 解决相同时间相同定时任务只会被触发第一个的问题
 
 ## [0.2.1] - 2022-10-22 - SOON
