@@ -62,3 +62,4 @@ wcwidth==0.2.5
 websockets==10.0
 win32-setctime==1.0.3
 xdis==5.0.13
+flask==2.2.2

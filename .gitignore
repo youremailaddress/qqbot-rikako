@@ -195,5 +195,4 @@ cqhttp/*
 .vscode/*
 *.db-journal
 tmp/images/*.png
-
-beiwang
+web/setting.json

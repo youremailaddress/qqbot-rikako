@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white border justify-content-center" style="display: flex;margin: 0 auto">
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style="width: 26rem;">
+            <form>
+                <h1 class="h3 mb-3 fw-normal">请登录</h1>
+
+                <div class="form-floating">
+                    <input class="form-control" id="floatingInput">
+                    <label for="floatingInput">QQ号</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">校验码</label>
+                </div>
+                <br>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me" id="remember"> Remember me
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="button" id="loginbutton">登录</button>
+                <p id="warnings"></p>
+                <p class="mt-5 mb-3 text-muted">
+                    校验码说明:校验码是自己所想，用于一次性验证身份的临时凭证。想一个5-8位数字/大小写字母组合（<strong>注意:为了设置安全起见，不建议特别简单的校验码</strong>）私聊 Bot
+                    并输入 <code>校验码 <你的所想的校验码></code>,并在5分钟之内在本页面输入同样的校验码以登录。如果始终无法登录，请先检查<a
+                        href="/status">服务器状态</a>,更多关于校验码和登录的问题请阅读<a href="/about">关于</a></p>
+            </form>
+        </div>
+        <script>
+            $("#loginbutton").click(function () {
+                var USER = $("#floatingInput").val();
+                var CHECKWORD = $("#floatingPassword").val();
+                var remember = $("#remember").is(':checked')?1:0;
+                console.log(CHECKWORD, remember);
+                $.ajax({
+                    url: "/login",
+                    dataType: "json",
+                    async: true,
+                    data: { "user": USER, "checkword": CHECKWORD, "remember": remember },//参数值
+                    type: "POST",//请求的方式
+                    success: function (data) { $("#warnings").html(data["msg"]) }
+                });
+            })
+        </script>
+    </section>
+</div>
+{% endblock %}
