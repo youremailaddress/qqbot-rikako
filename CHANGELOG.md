@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- 添加 web 端
 - 添加 bilibili 直播提醒功能
 - 添加各大高校历年分数线
 - 添加各大高校研招情况
@@ -19,7 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 解决 setu 被 tx 风控的问题
 - 解决相同时间相同定时任务只会被触发第一个的问题
 
-## [0.2.1] - 2022-10-22 - SOON
+### Changed
+
+- 优化路径，数据库路径和cqhttp路径与主体隔离，更方便备份
+
+## [0.2.1] - 2022-10-22 - LTS
 
 ### Added
 
