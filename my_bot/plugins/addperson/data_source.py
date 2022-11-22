@@ -1,7 +1,8 @@
 from utils.dbhandler import DbHandler
 from .model import FRI,FriendBase
+from utils.functions import getDir
 class FRIDBHandler(DbHandler):
-    def __init__(self, path="/my_bot/plugins/addperson/friends.db", Base=FriendBase):
+    def __init__(self, path=getDir("databases/friends.db"), Base=FriendBase):
         super().__init__(path, Base)
     
     def checknum(self,time):

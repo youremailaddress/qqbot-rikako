@@ -1,3 +1,5 @@
+import os
+
 def EditDist(a,b):
     m,n = len(a)+1,len(b)+1
     d = [[0]*n for i in range(m)]
@@ -15,3 +17,9 @@ def EditDist(a,b):
                 temp = 1
             d[i][j]=min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+temp)
     return d[m-1][n-1]
+
+def baseDir():
+    return os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0],os.path.pardir))
+
+def getDir(path):
+    return os.path.abspath(os.path.join(baseDir(),path))

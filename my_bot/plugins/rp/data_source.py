@@ -1,7 +1,8 @@
 from utils.dbhandler import DbHandler
 from .model import RP,RPBase
+from utils.functions import getDir
 class RPDBHandler(DbHandler):
-    def __init__(self, path="/my_bot/plugins/rp/rp.db", Base=RPBase):
+    def __init__(self, path=getDir("databases/rp.db"), Base=RPBase):
         super().__init__(path, Base)
     
     def push_rp(self,user_id,rp,comment,updatetime):

@@ -1,7 +1,8 @@
 import nonebot
 from nonebot.adapters.cqhttp import Bot as CQHTTPBot
 import os
-nonebot.init(_env_file='.env',set_on=True,root=os.path.split(os.path.realpath(__file__))[0]+"/")
+from utils.functions import baseDir
+nonebot.init(_env_file='.env',set_on=True,root=baseDir()+"/")
 nonebot.init(apscheduler_autostart=True)
 nonebot.init(apscheduler_config={
     "apscheduler.timezone": "Asia/Shanghai"

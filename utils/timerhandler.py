@@ -7,6 +7,7 @@ from nonebot import get_driver
 import time as tm
 import json
 from utils.permissionhandler import User
+from utils.functions import getDir
 driver = get_driver()
 global_config = get_driver().config
 
@@ -58,7 +59,7 @@ class TimerHandler(DbHandler):
     # 需要讨论的是：是否要记录发送时所在群聊？ 或者单纯添加时判断
     # 不需要记录群聊，当时判断即可
     def __init__(self):
-        super().__init__('/utils/timers.db', TimerBase)
+        super().__init__(getDir('databases/timers.db'), TimerBase)
 
     def _register(self,func_name,func_intro) -> bool:
         res = self.session.query(Time).filter(Time.name==func_name).first()

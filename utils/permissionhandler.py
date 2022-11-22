@@ -4,6 +4,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.matcher import Matcher
 from nonebot import get_driver
+from utils.functions import getDir
 driver = get_driver()
 global_config = get_driver().config
 
@@ -116,7 +117,7 @@ class User:
 
 class PermissionHandler(DbHandler):
     def __init__(self) -> None:
-        super().__init__("/utils/permissions.db",PermBase)
+        super().__init__(getDir("databases/permissions.db"),PermBase)
 
     def _register(self,func_name,func_usage,func_intro) -> bool:
         '''
