@@ -6,8 +6,7 @@ CheckWordBase = declarative_base()
 class CheckWord(CheckWordBase):
     __tablename__ = "checkword"
     __table_args__ = {'extend_existing': True}
-    id = Column(Integer, primary_key=True,autoincrement=True,nullable=False)
-    user = Column(Integer,nullable=False)
-    check = Column(String(14),nullable=False)
-    updatetime = Column(String(64),nullable=False)
+    user = Column(Integer,primary_key=True,nullable=False)
+    check = Column(String(14),primary_key=True,nullable=False)
+    updatetime = Column(Integer,primary_key=True,nullable=False)
     isused = Column(String(5),nullable=True)

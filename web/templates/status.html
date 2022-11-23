@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white border justify-content-center" style="display: flex;margin: 0 auto">
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style="width: 40rem;"> 
+            <h2>服务器参数</h2>
+            <p>CPU利用率:{{cpupersent}}</p>
+            <p>虚拟内存利用率:{{vmempersent}}</p>
+            <p>SWAP利用率:{{swappersent}}</p>
+            <h2>Nonebot 情况</h2>
+            {% if nflag == 0 %}
+            <p style="color:red">Nonebot 寄了!</p>
+            {% else %}
+            <p>CPU利用率:{{ncpu}}</p>
+            <p>虚拟内存利用率:{{nmem}}</p>
+            {% endif %}
+            <h2>CQHTTP 情况</h2>
+            {% if cflag == 0 %}
+            <p style="color:red">CQHTTP 寄了!</p>
+            {% else %}
+            <p>CPU利用率:{{ccpu}}</p>
+            <p>虚拟内存利用率:{{cmem}}</p>
+            {% endif %}
+        </div> 
+    </section>
+</div>
+
+{% endblock %}

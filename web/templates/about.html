@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white border justify-content-center" style="display: flex;margin: 0 auto;overflow-y:auto;">
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style="width: 40rem;"> 
+            <div id="rikako">
+                <h2>关于 Rikako ...?</h2>
+                <figure class="text-end">
+                    <blockquote class="blockquote">
+                      <code style="Font-size:15">"Rikako 就是 Rikako 啦。一直问为什么很不礼貌哦。其实，硬要说的话，只是比较顺口而已吧。Rikako 是2021年1月7日第一次来到网络空间里的，那时我还只会随机发一些表情和文字。后来加到了一个大群里，Rikako 见到了很和善的大家。虽然现在也没学会多少功能，但是 Rikako 能感觉到自己应对各种新功能的能力在不断进步，这得益于 Rikako 的那个不那么负责任的<em>Contributor</em>。虽然他经常介于摸鱼和摆烂之间，有时候兴头过去了就把 Rikako 晾在一边好几天没搭理，气得 Rikako 有时候真的想多给他找点麻烦。但是不得不说 Rikako 能慢慢成长起来，很大程度上归功于他。欸欸，怎么说两句好话你还飘了，还是快去把没做好的功能实现一下吧"</code>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                                Rikako,2022/11/24
+                    </figcaption>
+                </figure>
+                <p>好嘛，完全没解释清楚，还是我来吧。Rikako 目前来看是一个有一定功能的 QQ 机器人，但她完全可以作为一个 nonebot 上层的框架，虽然还没有那么成熟。从动机上，动手做 Rikako 是一个很偶然的想法，从最开始到现在都很偶然。最开始我只是想玩一下 QQ 机器人，就使用 CQHTTP 直接写请求处理，没有为了实现什么而做，只是 for fun. 后来接触到了 nonebot ，开始用框架写了一些简单的交互，我把她放到了一个群里。意外的有一些反响。在写新功能的过程中我发现写 nonebot 冗余还是很多的，并且在我期望进行不同群聊/好友之间权限隔离的时候，我发现单凭 nonebot 一己之力还是不够。当然确实存在一些插件，但我认为也隔离的不够好。于是我开始了对 Rikako 的第一次大改造：加入权限管理的模块管理各种功能。第二次改造缘起于对一些定时任务的思考。我希望能下放一部分权力给普通的用户，让他们可以用 bot 的功能做他们自定义的事情。比如自定义 bilibili 直播的关注、自定义新建的提醒等等可被用户操作的内容。于是我做了定时任务的模块。第三次也就是最近一次，我发现各种功能、权限的设置在 QQ 端已经过于复杂难以记忆，于是希望做出一个 Web 端解放我自己和其他用户。每一步都很偶然。Rika 说得对，我确实很多时候三分钟热度，说实话我也没有想到有一个项目我坚持了两年（说是两年其实维护断断续续的最多只有两个多月，但是 Rikako 确实是一直在运行的）</p>
+                <p>哦对了，关于框架部分的代码是肯定开源的，一些功能也会开源，一些涉及到偏个人的数据&信息等的功能就不开源了，希望理解。根据开源的部分和其他人的 nonebot 插件修改一下，很低的成本就可以定义自己的 bot。</p>
+                <p>至于拉 Rikako 加各种群，我目前倾向于保守态度。因为前段时间一些 nsfw 的功能让 bot 被封了三天。所以如果不是我所在的群或者我比较了解的群可能不会开放一些敏感功能。抛开这一点，我本人还是很希望多一些伙计来体验、提意见、找 bug 的。如果确实有需求可以自己根据我的代码搭一个，我可以提供有限的技术支持。</p>
+            </div>
+            <div id="checkword">
+                <h2>关于校验码</h2>
+                <p>一些常见的疑问</p>
+                <h3>...再说一遍详细的步骤?</h3>
+                <p>第一步：看网页显示的校验码</p>
+                <p>第二步：按照<code>校验码 <网页显示的校验码></code>的格式私聊或者群聊发给 bot</p>
+                <p>第三步：点击按钮登录</p>
+                <h3>校验码不会让我QQ被盗吧?</h3>
+                <p>绝对不会.校验码其实就是为了验证你有你所写的 QQ 号的控制权，其实原理和短信验证码是一样的，并且这个和QQ没什么关系，只是可视化的 bot 设置&管理平台而已，也就是说只是存了你对 bot 的一些功能的配置。</p>
+                <h3>在群里发不私聊会不会被人顶替登录这个网站?</h3>
+                <p>不会，为了防止这种情况，校验码也是另有一份加密存储的，在不知道服务器 secret 的前提下没有人能伪造校验码。另外，这个设计也是为了方便未加 bot 好友的小伙伴们能愉快使用。</p>
+                <h3>刷新页面后校验码变了，但是发的是原来的，能登录上吗?</h3>
+                <p>不能，只有提交的QQ号、校验码/QQ中发送者、发送的校验码完全匹配才能登录</p>
+            </div>
+            <div id="me">
+                <h2>关于作者</h2>
+                <figure class="text-end">
+                    <blockquote class="blockquote">
+                      <code style="Font-size:15">"假如你吃个鸡蛋,觉得味道不错,又何必认识那个下蛋的母鸡呢?"</code>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                                钱钟书
+                    </figcaption>
+                </figure>
+                <p>钱钟书先生说的很完善了，如果一定要认识的话，不妨先<a href="https://www.github.com/youremailaddress">多吃几个蛋</a>尝尝味道.</p>
+            </div>
+        </div> 
+    </section>
+</div>
+
+{% endblock %}
