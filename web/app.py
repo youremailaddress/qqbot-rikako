@@ -108,6 +108,7 @@ def login():
 def admin():
     if session.get("userid") != SUPERUSER:
         return redirect(url_for('profile'))
+    return render_template("admin.html",nav=adminav,uid=session.get("userid"),uname=getNickName(session.get("userid")),permnow="",blacknow="",func=[],group=[],friend=[])
 
 @app.route("/profile",methods=["GET"])
 def profile():

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white border justify-content-center" style="display: flex;margin: 0 auto;overflow-y:auto;">
+
+    <section class="w-100 p-4 d-flex justify-content-center pb-4">
+        <div style="width: 40rem;"> 
+            <h2>常规权限</h2>
+            <div class="form-group row">
+                <div class="form-group col-lg-3">
+                    <label class="form-label mt-4">功能名称</label>
+                    <select class="form-select" id="permfuncname" onchange="addtotext(1)">
+                    {% for item in func %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="exampleSelect1" class="form-label mt-4">群相关</label>
+                    <select class="form-select" id="permgroup" onchange="addtotext(2)">
+                        <option id="#1">群主</option>
+                        <option id="#2">管理</option>
+                        <option id="#3">群员</option>
+                        <option id="#4">匿名</option>
+                        <option id="*">任意</option>
+                        <option id="@">私聊</option>
+                    {% for item in group %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="exampleSelect1" class="form-label mt-4">好友相关</label>
+                    <select class="form-select" id="permfriend" onchange="addtotext(3)">
+                      <option id="*">任意</option>
+                    {% for item in friend %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <button type="button" class="btn btn-primary" onclick="addtotext(4)">下划线</button>
+                    <button type="button" class="btn btn-primary" onclick="addtotext(5)">换行符</button>
+                    <button type="button" class="btn btn-primary" onclick="addtotext(6)">空格符</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleTextarea" class="form-label mt-4">权限表</label>
+                <textarea class="form-control" id="permtable" rows="3">{{permnow}}</textarea>
+            </div>
+
+            <h2>黑名单</h2>
+            <div class="form-group row">
+                <div class="form-group col-lg-3">
+                    <label class="form-label mt-4">功能名称</label>
+                    <select class="form-select" id="blackfuncname" onchange="addtotext(7)">
+                    {% for item in func %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="exampleSelect1" class="form-label mt-4">群相关</label>
+                    <select class="form-select" id="blackgroup" onchange="addtotext(8)">
+                        <option id="#1">群主</option>
+                        <option id="#2">管理</option>
+                        <option id="#3">群员</option>
+                        <option id="#4">匿名</option>
+                        <option id="*">任意</option>
+                        <option id="@">私聊</option>
+                    {% for item in group %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label for="exampleSelect1" class="form-label mt-4">好友相关</label>
+                    <select class="form-select" id="blackfriend" onchange="addtotext(9)">
+                      <option id="*">任意</option>
+                    {% for item in friend %}
+                        <option id="{{item[0]}}">{{item[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-lg-3">
+                    <button type="button" class="btn btn-primary" onclick="addtotext(10)">下划线</button>
+                    <button type="button" class="btn btn-primary" onclick="addtotext(11)">换行符</button>
+                    <button type="button" class="btn btn-primary" onclick="addtotext(12)">空格符</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleTextarea" class="form-label mt-4">黑名单表</label>
+                <textarea class="form-control" id="blacktable" rows="3">{{blacknow}}</textarea>
+            </div>
+            <script>
+                function addtotext(x){
+                    var permadded = "";
+                    var blackadded = "";
+                    switch (x) {
+                        case 1:
+                            permadded = $("#permfuncname").find("option:selected").attr("id");
+                            break;
+                        case 2:
+                            permadded = $("#permgroup").find("option:selected").attr("id");
+                            break;
+                        case 3:
+                            permadded = $("#permfriend").find("option:selected").attr("id");
+                            break;
+                        case 4:
+                            permadded = "_";
+                            break;
+                        case 5:
+                            permadded = "\n"
+                            break;
+                        case 6:
+                            permadded = " "
+                            break;
+                        case 7:
+                            blackadded = $("#blackfuncname").find("option:selected").attr("id");
+                            break;
+                        case 8:
+                            blackadded = $("#blackgroup").find("option:selected").attr("id");
+                            break;
+                        case 9:
+                            blackadded = $("#blackfriend").find("option:selected").attr("id");
+                            break;
+                        case 10:
+                            blackadded = "_";
+                            break;
+                        case 11:
+                            blackadded  = "\n"
+                            break;
+                        case 12:
+                            blackadded = " "
+                            break;
+                        default:
+                            break;
+                    }
+                    console.log(permadded,blackadded);
+                    $("#permtable").html($("#permtable").html()+permadded);
+                    $("#blacktable").html($("#blacktable").html()+blackadded);
+                }
+            
+            </script>
+</div>
+</div> 
+</section>
+</div>
+{% endblock %}
