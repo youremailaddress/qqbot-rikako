@@ -1,4 +1,4 @@
-from utils.dbhandler import DbHandler
+from utils.db.dbhandler import DbHandler
 from .model import RP,RPBase
 from utils.functions import getDir
 class RPDBHandler(DbHandler):

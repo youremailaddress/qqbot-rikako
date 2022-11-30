@@ -1,6 +1,6 @@
 import os.path
 from select import select
-from utils.dbhandler import SelfDefineDBHandler
+from utils.db.dbhandler import SelfDefineDBHandler
 
 class BiliLiveDBHandler(SelfDefineDBHandler):
     def __init__(self, path=os.path.split(os.path.realpath(__file__))[0]+"/bililive.db"):

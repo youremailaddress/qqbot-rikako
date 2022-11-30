@@ -1,38 +1,21 @@
-from utils.db.dbhandler import DbHandler
-from .model import FRI,FriendBase
-from utils.functions import getDir
-from os.path import exists
 import json
-class FRIDBHandler(DbHandler):
-    def __init__(self, path=getDir("databases/friends.db"), Base=FriendBase):
-        super().__init__(path, Base)
-    
-    def checknum(self,time):
-        '''
-        True: 可以添加
-        False：不能添加
-        '''
-        if self.session.query(FRI).filter(FRI.updatetime==time).count() > 5:
-            return False
-        else:
-            return True
-    
-    def push_person(self,userid,time):
-        self.session.merge(FRI(id=userid,updatetime=time))
-        self.session.commit()
+from utils.path.pathparser import getDir,pathExists
 
-class FRIHandler():
+class CacheHandler():
+    # 一个缓存机制 目的是方便 web 端进行鉴权
+    # 里面存储了（最多一天内的）好友和群聊以及群聊中的人、角色对应关系
     def __init__(self,path=getDir("databases/friends.json")):
         self.path = path
         self.friend = {}
         self.group = {}
         self.frigro = {}
-        if not exists(self.path):
+        if not pathExists(self.path):
             self.exportdata()
         else:
             self.importdata()
 
     def importdata(self):
+        # 从硬盘读取数据
         dic = {}
         with open(self.path,"r",encoding="UTF8") as f:
             dic = json.loads(f.read())
@@ -44,6 +27,7 @@ class FRIHandler():
             self.frigro[eval(k)] = v
 
     def exportdata(self):
+        # 把数据存回硬盘
         dic = {}
         tempdic = {}
         for k,v in self.frigro.items():
@@ -63,6 +47,7 @@ class FRIHandler():
         return list(self.group.keys())
 
     def handle_data_friends(self,friendslis):
+        # 更新时对新的 friendslis 进行处理 由于存在 admin 的 remark 所以不能简单覆盖
         m = {}
         for item in friendslis:
             m[item['user_id']] = item['remark']
@@ -76,6 +61,7 @@ class FRIHandler():
             del self.friend[uid]
 
     def handle_data_group(self,grouplis):
+        # 更新时对新的 grouplis 进行处理 不能覆盖原因同上
         m = {}
         for item in grouplis:
             m[item["group_id"]] = item["group_name"]
@@ -89,6 +75,7 @@ class FRIHandler():
             del self.group[gid]
 
     def handle_data_frigro(self,frigrodic):
+        # 更新群聊里成员 直接覆盖
         tempdic = {}
         for k,v in frigrodic.item():
             grp = k
@@ -97,12 +84,15 @@ class FRIHandler():
         self.frigro = tempdic
 
     def get_uid_and_remark(self):
+        # 获取好友和 remark
         return self.friend
 
     def get_gid_and_remark(self):
+        # 获取群聊和 remark
         return self.group
 
     def get_gid_and_type(self,uid):
+        # 给定具体的uid，获取所在的群聊和扮演的群内角色列表
         retlis = []
         for gid in self._get_all_gid():
             if self.frigro.get((gid,uid)) != None:
@@ -110,6 +100,7 @@ class FRIHandler():
         return retlis
 
     def change_remark_friend(self,uid,remark):
+        # 修改某个好友的 remark
         if self.friend.get(uid) != None:
             self.friend[uid] = remark
             return True
@@ -117,11 +108,9 @@ class FRIHandler():
             return False
 
     def change_remark_group(self,gid,remark):
+        # 修改某个群组的remark
         if self.group.get(gid) != None:
             self.group[gid] = remark
             return True
         else:
             return False
-    
-FRDBH = FRIDBHandler()
-FRIH = FRIHandler()

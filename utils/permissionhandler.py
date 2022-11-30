@@ -1,5 +1,5 @@
-from utils.dbhandler import DbHandler
-from utils.model import *
+from utils.db.dbhandler import DbHandler
+from utils.core.model.model import *
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.matcher import Matcher
@@ -7,7 +7,6 @@ from nonebot import get_driver
 from utils.functions import getDir
 driver = get_driver()
 global_config = get_driver().config
-
 
 class User:
     def __init__(self,gid:str,uid=None) -> None:

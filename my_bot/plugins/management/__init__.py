@@ -1,6 +1,6 @@
 from nonebot import get_driver
 from utils.functions import EditDist
-from utils.model import *
+from utils.core.model.model import *
 driver = get_driver()
 global_config = get_driver().config
 from nonebot.typing import T_State

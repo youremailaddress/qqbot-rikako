@@ -1,4 +1,4 @@
-from utils.dbhandler import DbHandler
+from utils.db.dbhandler import DbHandler
 from .model import CheckWord,CheckWordBase
 from utils.functions import getDir
 import time
