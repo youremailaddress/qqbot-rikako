@@ -73,6 +73,13 @@ class ConfigDB(FuncDB):
         res = self.session.query(Personalize).filter(Personalize.uid==uid,Personalize.fid==fid).all()
         return [(i.id,i.fid,i.func.name,i.uid,i.params,i.isdefault) for i in res]
 
+    def get_conf_by_id(self,pid:int):
+        res = self.session.query(Personalize).filter(Personalize.id==pid).one()
+        if res == None:
+            return None
+        else:
+            return (res.id,res.fid,res.func.name,res.uid,res.params,res.isdefault)
+
     def del_conf(self,id:int):
         '''
         del_conf:根据id删除某config

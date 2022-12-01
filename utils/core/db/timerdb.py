@@ -4,7 +4,7 @@ class TimerDB(FuncDB):
     def __init__(self) -> None:
         super().__init__()
 
-    def add_timer(self,fid:int,uid:int,start:int,interval:int,pid:int):
+    def add_timer(self,fid:int,uid:int,gid:int,start:int,interval:int,pid:int):
         '''
         add_timer:添加 timer
         fid:验证过存在的fid
@@ -13,7 +13,7 @@ class TimerDB(FuncDB):
         pid:验证过的个性化id
         '''
         try:
-            self.session.add(Time(fid=fid,uid=str(uid),start=start,interval=interval,pid=pid))
+            self.session.add(Time(fid=fid,uid=str(uid),gid=str(gid),start=start,interval=interval,pid=pid))
             self.session.commit()
             return True
         except:
@@ -36,13 +36,13 @@ class TimerDB(FuncDB):
     def select_timer_by_id(self,id:int):
         '''
         select_timer_by_id:根据 id 查询定时任务
-        return:None or (a.fid,a.func.name,a.uid,a.start,a.interval,a.pid,a.person.params)
+        return:None or (a.fid,a.func.name,a.uid,a.gid,a.start,a.interval,a.pid,a.person.params)
         '''
         a = self.session.query(Time).filter(Time.id==id).one()
         if a == None:
             return None
         else:
-            return (a.fid,a.func.name,a.uid,a.start,a.interval,a.pid,a.person.params)
+            return (a.fid,a.func.name,a.uid,a.gid,a.start,a.interval,a.pid,a.person.params)
 
     def select_timer_by_user(self,uid:int):
         '''
@@ -53,4 +53,11 @@ class TimerDB(FuncDB):
         if a == []:
             return []
         else:
-            return [(i.fid,i.func.name,i.uid,i.start,i.interval,i.pid,i.person.params) for i in a]
+            return [(i.fid,i.func.name,i.uid,i.gid,i.start,i.interval,i.pid,i.person.params) for i in a]
+
+    def select_timer_by_name(self,name:str):
+        a = self.session.query(Time).join(Func).filter(Func.name == name).all()
+        if a == []:
+            return []
+        else:
+            return [(i.fid,i.func.name,i.uid,i.gid,i.start,i.interval,i.pid,i.person.params) for i in a]
