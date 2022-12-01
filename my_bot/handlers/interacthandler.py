@@ -1,8 +1,9 @@
 from my_bot.handlers.utils import *
 from utils.core.tools.jsonconf import Jsonify
 from utils.core.tools.time import TimeUnit
+from utils.core.tools.user import Unit
 from my_bot.handlers.eventparser import EventGURParser
-import json
+from utils.core.cache.cache import CacheHwd
 import time as timemodule
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
@@ -123,9 +124,13 @@ class BotHandler():
         在添加 timer 的时候进行的权限检查
         '''
         def decorator(self,name:str,uid:str,gid:str,start:int,interval:int,pid:int):
-            # do something
-            self.perm
-            return func
+            # 如何检查 timer
+            un = Unit(uid,gid)
+            if un.uid.isexpand or un.gid.isexpand:
+                return False
+            if not self._perm_checker(name,uid,gid,CacheHwd.get_role(uid,gid)):
+                return False
+            return func(self,name,uid,gid,start,interval,pid)
         
         return decorator
 
@@ -152,4 +157,7 @@ class BotHandler():
 
     @_add_timer_checker
     def addTimer(self,name:str,uid:str,gid:str,start:int,interval:int,pid:int):
-        self.timer.add_timer()
+        if self.conf.getConf(pid) == None:
+            return False
+        fid = self.func.get_id_by_name(name)
+        return self.timer.add_timer(fid,uid,gid,start,interval,pid)

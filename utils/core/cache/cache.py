@@ -99,6 +99,13 @@ class CacheHandler():
                 retlis.append((gid,self.frigro[(gid,uid)]))
         return retlis
 
+    def get_role(self,uid,gid):
+        res = self.get_gid_and_type(uid)
+        for item in res:
+            if item[0] == gid:
+                return item[1]
+        return None
+
     def change_remark_friend(self,uid,remark):
         # 修改某个好友的 remark
         if self.friend.get(uid) != None:
@@ -114,3 +121,5 @@ class CacheHandler():
             return True
         else:
             return False
+
+CacheHwd = CacheHandler()
