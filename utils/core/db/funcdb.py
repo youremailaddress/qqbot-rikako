@@ -4,7 +4,7 @@ class FunctionDB(FuncDB):
     def __init__(self) -> None:
         super().__init__()
     
-    def add_func(self,name:str,intro:str,usage:str,istimer:bool,paramstring:str) -> bool:
+    def add_func(self,name:str,intro:str,usage:str,istimer:bool=False,paramstring:str="{}") -> bool:
         '''
         name:函数名 不可重复
         intro:函数介绍
@@ -53,3 +53,7 @@ class FunctionDB(FuncDB):
             return False
         else:
             return res[0]
+
+    def get_all_func(self):
+        res = self.session.query(Func).all()
+        return [(i.name,i.intro,i.usage) for i in res]

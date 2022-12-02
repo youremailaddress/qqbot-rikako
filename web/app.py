@@ -4,15 +4,12 @@ import base64,json
 import os,sys
 sys.path.append(os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0],os.path.pardir)))
 from web.utils.tools import *
+import utils.conf.confparser
 from my_bot.plugins.checkword.data_source import CWDBH
-from utils.functions import getDir
-
-with open(getDir("web/setting.json"),"r") as f:
-    setting = json.loads(f.read())
 
 app = Flask(__name__)
-SUPERUSER = setting["SUPERUSER"]
-app.config['SECRET_KEY'] =  base64.b64decode(setting["SECRET_KEY"].encode())
+SUPERUSER = os.getenv("SUPER")
+app.config['SECRET_KEY'] =  base64.b64decode(os.getenv("SECRET_KEY").encode())
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 passbynav = [("login","people-circle","登录"),("status","speedometer","服务器状态"),("about","chevron-right","关于")]
 usernav = [("notice","calendar3","新通知"),("comment","chat-quote-fill","建议&新功能"),("profile","gear-fill","个性设置"),("status","speedometer","服务器状态")]

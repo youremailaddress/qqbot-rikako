@@ -4,6 +4,8 @@ from utils.core.tools.time import TimeUnit
 from utils.core.tools.user import Unit
 from my_bot.handlers.eventparser import EventGURParser
 from utils.core.cache.cache import CacheHwd
+import utils.conf.confparser
+import os
 import time as timemodule
 from nonebot.typing import T_State
 from nonebot.adapters.cqhttp import Bot, Event
@@ -19,8 +21,28 @@ class BotHandler():
         self.perm = PermissionHandler()
         self.timer = TimerHandler()
     
-    def _register(self,name,intro,usage,paramstring,istimer=False):
+    def _register(self,name,intro,usage,paramstring="{}",istimer=False):
         self.func.register(name,intro,usage,istimer,paramstring)
+
+    def addPerm(self,funcname:str,uid:str,gid:str,isblack=False):
+        fid = self.func.getFuncid(funcname)
+        if fid == False:
+            return False
+        try:
+            Unit(uid,gid)
+        except:
+            return False
+        return self.perm.add_perm(fid,uid,gid,isblack)
+
+    def delPerm(self,funcname:str,uid:str,gid:str,isblack=False):
+        fid = self.func.getFuncid(funcname)
+        if fid == False:
+            return False
+        try:
+            Unit(uid,gid)
+        except:
+            return False
+        return self.perm.del_perm(fid,uid,gid,isblack)
 
     def _work_checker(self):
         # 检查是否开机
@@ -134,8 +156,11 @@ class BotHandler():
         
         return decorator
 
-    def checker(self,name,usage,intro,istimer,req,optional):
+    def checker(self,name,usage,intro,istimer=False,req=[],optional=[],isAdmin=False):
         self._register(name,usage,intro,Jsonify.wrapReqOpt(req,optional),istimer)
+        if isAdmin:
+            self.addPerm(name,os.getenv("SUPER"),"*")
+            self.addPerm(name,os.getenv("SUPER"),"@")
         def decorator(func):
             if not istimer: # 如果是 on event 函数
                 async def wrapper(bot: Bot, event: Event, state: T_State,matcher: Matcher):

@@ -13,6 +13,7 @@ driver = nonebot.get_driver()
 driver.register_adapter("cqhttp", CQHTTPBot)
 nonebot.load_plugin("my_bot.plugins.test")
 nonebot.load_plugin("my_bot.plugins.timer")
+nonebot.load_plugin("my_bot.plugins.management")
 # conf = driver.config
 
 if __name__ == "__main__":
