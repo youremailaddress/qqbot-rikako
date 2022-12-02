@@ -5,10 +5,11 @@ class Expand():
 
 class Unit(Expand):
     def __init__(self,uid:str,gid:str) -> None:
-        super.__init__()
+        super().__init__()
         self.uid = User(uid)
         self.gid = Group(gid)
-        assert self.is_checked()
+        self.is_checked()
+        assert self.is_checked
         
     def is_checked(self):
         if not self.uid.uid.isdigit() and self.uid.uid not in ["*","#1","#2","#3","#4"]:
@@ -98,7 +99,7 @@ class Unit(Expand):
 
 class User(Expand):
     def __init__(self,uid:str) -> None:
-        super.__init__()
+        super().__init__()
         self.uid = self.check_is_expand(uid)
         assert self.ischecked
 
@@ -116,7 +117,7 @@ class User(Expand):
 
 class Group(Expand):
     def __init__(self,gid:str) -> None:
-        super.__init__()
+        super().__init__()
         self.gid = self.check_is_expand(gid)
         assert self.ischecked
 

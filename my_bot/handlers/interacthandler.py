@@ -60,11 +60,11 @@ class BotHandler():
         :如果为空则尝试寻找该 func / uid 的 main_conf 
         :返回已经处理好的 param dic OR False
         '''
+        paramstr = self.func.getParamstring(fid)
+        if paramstr == None:
+            return False
         if pid != None: # 给了 pid
             if not self.conf.Match(uid,pid): # 必须是本人的conf
-                return False
-            paramstr = self.func.getParamstring(fid)
-            if paramstr == None:
                 return False
             confstr = self.conf.getConf(pid)
             if confstr == None:
@@ -138,7 +138,7 @@ class BotHandler():
         self._register(name,usage,intro,Jsonify.wrapReqOpt(req,optional),istimer)
         def decorator(func):
             if not istimer: # 如果是 on event 函数
-                async def wrapper(bot: Bot, event: Event, state: T_State,matcher: Matcher,**kwargs):
+                async def wrapper(bot: Bot, event: Event, state: T_State,matcher: Matcher):
                     GUR = EventGURParser(event)
                     res = self._on_event_checker(name,GUR.uid,GUR.gid,GUR.role)
                     if res == False:
@@ -161,3 +161,5 @@ class BotHandler():
             return False
         fid = self.func.get_id_by_name(name)
         return self.timer.add_timer(fid,uid,gid,start,interval,pid)
+    
+BH = BotHandler()

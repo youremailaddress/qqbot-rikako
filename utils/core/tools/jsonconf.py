@@ -2,7 +2,7 @@ import json
 
 class Jsonify():
     def __init__(self,jsonstring:str) -> None:
-        self.js = self.LoadJson(jsonstring)
+        self.js = Jsonify.LoadJson(jsonstring)
         assert self.js != None
         
     def getRequired(self):
@@ -23,7 +23,8 @@ class Jsonify():
         req = self.getRequired()
         return _all - req
 
-    def LoadJson(self,jsonstring:str):
+    @staticmethod
+    def LoadJson(jsonstring:str):
         '''
         加载 jsonstring
         '''
@@ -32,11 +33,18 @@ class Jsonify():
         except:
             return None
     
+    @staticmethod
+    def dumpJson(dic:dict):
+        try:
+            return json.dumps(dic)
+        except:
+            return None
+
     def preParamProcess(self,paramstring:str):
         '''
         把用户设置里和函数规定传入参数相同的部分以dic形式返回 如果未填必填项 则返回 None
         '''
-        m = self.LoadJson(paramstring)
+        m = Jsonify.LoadJson(paramstring)
         if m == None:
             return None
         retdic = {}
