@@ -3,7 +3,7 @@ from nonebot.plugin import on_command
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
-from utils.permissionhandler import PMH as perm
+from my_bot.handlers.interacthandler import BH
 from utils.multimediahandler import makeCardImage,makePic
 
 async def tryCardImage(handler,url,isgroup):
@@ -18,7 +18,7 @@ async def tryCardImage(handler,url,isgroup):
 
 setu = on_command("来张色图",priority=50)
 @setu.handle()
-@perm.checker(name="色图",usage="来张色图 一至多个查询词(空格分开、默认无)",intro="随机回复一张色图,来源:lolicon,多个关键词默认与连接，如果找不到图会用或连接，最后尝试无关键词发送")
+@BH.checker(name="色图",usage="来张色图 一至多个查询词(空格分开、默认无)",intro="随机回复一张色图,来源:lolicon,多个关键词默认与连接，如果找不到图会用或连接，最后尝试无关键词发送")
 async def setuhandle(bot: Bot, event: Event,state: T_State,matcher: Matcher):
     msg = str(event.message).strip()
     if msg == "":

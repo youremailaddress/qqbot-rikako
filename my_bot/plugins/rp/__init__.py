@@ -3,7 +3,7 @@ from datetime import datetime
 from nonebot.adapters.cqhttp import Bot, Event
 from nonebot.typing import T_State
 from nonebot.matcher import Matcher
-from utils.permissionhandler import PMH as perm
+from my_bot.handlers.interacthandler import BH
 from nonebot.plugin import on_command
 from .data_source import RPH as rphdle
 from utils.multimediahandler import makeAt
@@ -34,7 +34,7 @@ rpcomment = {
 
 rp_pro = on_command('今日人品',aliases={"rp","人品"},priority=50)
 @rp_pro.handle()
-@perm.checker(name="人品",usage="今日人品/人品/rp *",intro="查询今日人品")
+@BH.checker(name="人品",usage="今日人品/人品/rp *",intro="查询今日人品")
 async def rp_(bot: Bot, event: Event, state: T_State,matcher: Matcher):
     user_id = event.get_user_id()
     updatetime = datetime.now().strftime('%Y%m%d')

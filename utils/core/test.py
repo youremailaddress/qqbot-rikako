@@ -11,8 +11,8 @@ if __name__ == "__main__":
     perm = PermissionDB()
     timer = TimerDB()
     # 测试 FunctionDB
-    print(func.add_func("测试1","test intro","test usage",istimer=False,paramstring="{'test':123}"))
-    print(func.add_func("测试2","test intro","test usage",istimer=False,paramstring="{'another':234}"))
+    print(func.add_func("测试1","test intro","test changed!",istimer=False,paramstring="{'test':123}"))
+    print(func.add_func("测试2","test intro","test usage",istimer=True,paramstring="{'another':234}"))
     print(func.select_func_by_name("测试1"))
     print(func.select_func_by_name("测试3"))
     print(func.get_id_by_name("测试1"))
